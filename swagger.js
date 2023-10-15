@@ -5,7 +5,7 @@ const doc = {
       title: 'Personal Project (CSE 341)',
       description: 'CSE 341 API',
    },
-   host: 'localhost:3000',
+   host: 'cse341-personalproject.onrender.com',
    schemes: ['https'],
 };
 

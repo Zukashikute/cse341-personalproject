@@ -5,18 +5,14 @@
     "description": "CSE 341 API",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cse341-personalproject.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/tasks/": {
       "get": {
         "description": "Getting all tasks from our database",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK"
@@ -73,9 +69,7 @@
     "/tasks/{id}": {
       "get": {
         "description": "Getting a single task from our database using id",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
