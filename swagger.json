@@ -1,0 +1,95 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Personal Project (CSE 341)",
+    "description": "CSE 341 API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/tasks/": {
+      "get": {
+        "description": "Getting all tasks from our database",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "Creating a single task to our database",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "questPoints": {
+                  "example": "any"
+                },
+                "assignee": {
+                  "example": "any"
+                },
+                "reporter": {
+                  "example": "any"
+                },
+                "priority": {
+                  "example": "any"
+                },
+                "startDate": {
+                  "example": "any"
+                },
+                "dueDate": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "description": "Getting a single task from our database using id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
