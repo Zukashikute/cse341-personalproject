@@ -36,6 +36,6 @@ Content-Type: application/json
    "assignee": "iRed",
    "reporter": "Jared Bala",
    "priority": "Highest",
-   "startDate": "October 9, 2023",
-   "dueDate": "October 15, 2023"
+   "startDate": "2023-10-09T16:00:00.000+00:00",
+   "dueDate": "2023-10-14T16:00:00.000+00:00"
 }
