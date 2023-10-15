@@ -7,7 +7,6 @@ const getAllTasks = async (req, res, next) => {
    // #swagger.description = 'Getting all tasks from our database'
    try {
       const result = await mongodb.getDb().db().collection('tasks').find();
-      console.log(result);
       result.toArray().then((lists) => {
          res.setHeader('Content-Type', 'application/json');
          res.status(200).json(lists);
