@@ -4,28 +4,46 @@ GET http://localhost:3000/tasks
 ### Get a single task (Local)
 GET http://localhost:3000/tasks/652b578bd31a0419aee491a2
 
-### Create contact (Local)
+### Create a task (Local)
 POST http://localhost:3000/tasks HTTP/1.1
 Content-Type: application/json
 
 {
-   "title": "[BE] Get Request",
-   "description": "Create get request to fetch for all tasks",
+   "title": "[BE] Update Request",
+   "description": "Create update request to update a task",
    "questPoints": 3,
    "assignee": "iRed",
    "reporter": "Jared Bala",
    "priority": "Highest",
-   "startDate": "2023-10-09T16:00:00.000+00:00",
-   "dueDate": "2023-10-14T16:00:00.000+00:00"
+   "startDate": "2023-10-16T16:00:00.000+00:00",
+   "dueDate": "2023-10-21T16:00:00.000+00:00"
 }
 
-### Get all tasks list (Local)
+### Update a task (Local)
+PUT http://localhost:3000/tasks/65347dcd72297cadc860e851 HTTP/1.1
+Content-Type: application/json
+
+{
+   "title": "[BE] Update Request",
+   "description": "Testing to update a task",
+   "questPoints": 3,
+   "assignee": "iRed",
+   "reporter": "Jared Bala",
+   "priority": "Highest",
+   "startDate": "2023-10-16T16:00:00.000+00:00",
+   "dueDate": "2023-10-21T16:00:00.000+00:00"
+}
+
+### Delete a task (Local)
+DELETE http://localhost:3000/tasks/65347dcd72297cadc860e851
+
+### Get all tasks list (Render)
 GET https://cse341-personalproject.onrender.com/tasks
 
-### Get a single task (Local)
-GET https://cse341-personalproject.onrender.com/tasks/652b578bd31a0419aee491a2
+### Get a single task (Render)
+GET https://cse341-personalproject.onrender.com/tasks/65347dcd72297cadc860e851
 
-### Create contact (Local)
+### Create a task (Render)
 POST https://cse341-personalproject.onrender.com/tasks HTTP/1.1
 Content-Type: application/json
 
@@ -39,3 +57,21 @@ Content-Type: application/json
    "startDate": "2023-10-09T16:00:00.000+00:00",
    "dueDate": "2023-10-14T16:00:00.000+00:00"
 }
+
+### Update a task (Render)
+PUT http://localhost:3000/tasks/65347dcd72297cadc860e851 HTTP/1.1
+Content-Type: application/json
+
+{
+   "title": "[BE] Update Request",
+   "description": "Testing to update a task",
+   "questPoints": 3,
+   "assignee": "iRed",
+   "reporter": "Jared Bala",
+   "priority": "Highest",
+   "startDate": "2023-10-16T16:00:00.000+00:00",
+   "dueDate": "2023-10-21T16:00:00.000+00:00"
+}
+
+### Delete a task (Render)
+DELETE http://localhost:3000/tasks/65347dcd72297cadc860e851
