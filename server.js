@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('./models');
+const passportSetup = require('./config/passportSetup');
 
 const port = process.env.PORT || 3000;
 
