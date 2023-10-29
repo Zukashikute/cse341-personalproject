@@ -1,46 +1,39 @@
 const { ObjectId } = require('mongodb');
-const mongodb = require('../db/connect');
+const db = require('../models');
+const Tasks = db.tasks;
 
 // GET Request Controllers (Read)
 
 const getAllTasks = async (req, res, next) => {
    // #swagger.description = 'Getting all tasks from our database'
-   try {
-      mongodb
-         .getDb()
-         .db()
-         .collection('tasks')
-         .find()
-         .toArray((err, lists) => {
-            if (err) {
-               res.status(400).json({ message: err })
-            }
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(lists);
+   Tasks.find({}).then((lists) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists);
+   })
+      .catch((err) => {
+         res.status(500).send({
+            message:
+               err.message || 'An error occurred while getting tasks.',
          });
-
-   } catch {
-      console.log("Error on getting all tasks", err)
-   }
+      });
 
 };
 
 const getSingleTask = async (req, res, next) => {
    // #swagger.description = 'Getting a single task from our database using id'
-   if (!ObjectId.isValid(req.params.id)) {
-      res.status(400).json('Must use a valid task id to find a task');
-   }
-   const userId = new ObjectId(req.params.id)
-   mongodb
-      .getDb()
-      .db()
-      .collection('tasks')
-      .find({ _id: userId }).toArray((err, result) => {
-         if (err) {
-            res.status(400).json({ message: err })
-         }
-         res.setHeader('Content-Type', 'application/json');
-         res.status(200).json(result[0]);
+
+   const userId = req.params.id
+   Tasks.findOne({ _id: userId }).then((data) => {
+      if (!data) {
+         res.status(400).send({ message: 'No task found with id ' + userId });
+      } else {
+         res.status(200).json(data);
+      }
+   })
+      .catch((err) => {
+         res.status(500).send({
+            message: 'Error getting task with id ' + userId,
+         });
       });
 };
 
@@ -48,7 +41,7 @@ const getSingleTask = async (req, res, next) => {
 const createTask = async (req, res) => {
    // #swagger.description = 'Creating a single task to our database'
 
-   const task = {
+   const task = new Tasks({
       title: req.body.title,
       description: req.body.description,
       questPoints: req.body.questPoints,
@@ -57,13 +50,9 @@ const createTask = async (req, res) => {
       priority: req.body.priority,
       startDate: req.body.startDate,
       dueDate: req.body.dueDate,
-   };
+   });
 
-   const response = await mongodb
-      .getDb()
-      .db()
-      .collection('tasks')
-      .insertOne(task);
+   const response = await task.save();
 
    if (response.acknowledged) {
       return res.status(201).json(response);
@@ -79,6 +68,7 @@ const updateTask = async (req, res) => {
    if (!ObjectId.isValid(req.params.id)) {
       res.status(400).json('Must use a valid task id to update a task');
    }
+
    const userId = new ObjectId(req.params.id)
    const task = {
       title: req.body.title,
@@ -91,11 +81,7 @@ const updateTask = async (req, res) => {
       dueDate: req.body.dueDate,
    };
 
-   const response = await mongodb
-      .getDb()
-      .db()
-      .collection('tasks')
-      .replaceOne({ _id: userId }, task)
+   const response = await Tasks.findByIdAndUpdate(userId, task, { new: true })
 
    if (response.modifiedCount > 0) {
       return res.status(204).send();
@@ -114,11 +100,7 @@ const deleteTask = async (req, res) => {
 
    const userId = new ObjectId(req.params.id);
 
-   const response = await mongodb
-      .getDb()
-      .db()
-      .collection('tasks')
-      .deleteOne({ _id: userId }, true)
+   const response = await Tasks.deleteOne({ _id: userId }, true)
 
    if (response.deletedCount > 0) {
       return res.status(200).send();

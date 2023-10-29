@@ -24,12 +24,12 @@ PUT http://localhost:3000/tasks/65347dcd72297cadc860e851 HTTP/1.1
 Content-Type: application/json
 
 {
-   "title": "[BE] Update Request",
+   "title": "BE Update Request",
    "description": "Testing to update a task",
    "questPoints": 3,
    "assignee": "iRed",
    "reporter": "Jared Bala",
-   "priority": "Highest",
+   "priority": "Medium",
    "startDate": "2023-10-16T16:00:00.000+00:00",
    "dueDate": "2023-10-21T16:00:00.000+00:00"
 }
@@ -59,7 +59,7 @@ Content-Type: application/json
 }
 
 ### Update a task (Render)
-PUT http://localhost:3000/tasks/65347dcd72297cadc860e851 HTTP/1.1
+PUT https://cse341-personalproject.onrender.com/tasks/65347dcd72297cadc860e851 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -68,10 +68,10 @@ Content-Type: application/json
    "questPoints": 3,
    "assignee": "iRed",
    "reporter": "Jared Bala",
-   "priority": "Highest",
+   "priority": "Medium",
    "startDate": "2023-10-16T16:00:00.000+00:00",
    "dueDate": "2023-10-21T16:00:00.000+00:00"
 }
 
 ### Delete a task (Render)
-DELETE http://localhost:3000/tasks/65347dcd72297cadc860e851
+DELETE https://cse341-personalproject.onrender.com/tasks/65347dcd72297cadc860e851
