@@ -71,7 +71,7 @@ const updateTask = async (req, res) => {
       res.status(400).json('Must use a valid task id to update a task');
    }
 
-   const userId = new ObjectId(req.params.id)
+   const userId = req.params.id
    const task = {
       title: req.body.title,
       description: req.body.description,
@@ -83,12 +83,16 @@ const updateTask = async (req, res) => {
       dueDate: req.body.dueDate,
    };
 
-   const response = await Tasks.findByIdAndUpdate(userId, task, { new: true })
+   try {
+      const response = await Tasks.findByIdAndUpdate(userId, task, { new: true });
+      if (!response) {
+         return res.status(404).send({ message: 'No task found with id ' + _id })
+      }
 
-   if (response.modifiedCount > 0) {
-      return res.status(204).send();
-   } else {
-      return res.status(500).json(response.error || 'Some error occurred while updating the task.');
+      return res.status(200).json(response);
+
+   } catch (err) {
+      return res.status(500).send({ message: 'Error updating task: ' + err.message });
    }
 
 }
