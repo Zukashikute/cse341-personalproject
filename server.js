@@ -28,10 +28,8 @@ app.use(passport.initialize())
    .use(passport.session())
    .use(bodyParser.json())
    .use(cors())
+   .use(cookieParser())
    .use('/', require('./routes'));
-
-app.use(cookieParser())
-
 
 db.mongoose
    .connect(db.url, {
