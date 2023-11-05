@@ -100,7 +100,7 @@ const deleteTask = async (req, res) => {
       res.status(400).json('Must use a valid task id to delete a task');
    }
 
-   const userId = new ObjectId(req.params.id);
+   const userId = req.params.id;
 
    Tasks.deleteOne({ _id: userId })
       .then((data) => {
