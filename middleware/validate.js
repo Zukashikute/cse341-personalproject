@@ -71,7 +71,7 @@ const registrationRules = () => {
          .normalizeEmail()
          .withMessage("A valid email is required."),
 
-      body("account_password")
+      body("password")
          .trim()
          .isStrongPassword({
             maxLength: 16,
