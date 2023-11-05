@@ -52,13 +52,15 @@ const createTask = async (req, res) => {
       dueDate: req.body.dueDate,
    });
 
-   const response = await task.save();
-
-   if (response.acknowledged) {
-      return res.status(201).json(response);
-   } else {
-      return res.status(500).json(response.error || 'Error occurred while creating a task.');
-   }
+   await task.save().then((data) => {
+      console.log(data);
+      res.status(201).send(data);
+   })
+      .catch((err) => {
+         res.status(500).send({
+            message: err.message || 'Error occurred while creating a task.'
+         });
+      });
 
 }
 
