@@ -25,7 +25,7 @@ module.exports = (mongoose) => {
          startDate: {
             type: String
          },
-         endDate: {
+         dueDate: {
             type: String
          },
       })
