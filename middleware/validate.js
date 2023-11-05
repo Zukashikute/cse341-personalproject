@@ -74,10 +74,9 @@ const registrationRules = () => {
       body("password")
          .trim()
          .isStrongPassword({
-            maxLength: 16,
-            minLength: 8,
+            minLength: 6,
          })
-         .withMessage("The password must be 8 to 16 characters long"),
+         .withMessage("The minimum password length is 6 characters"),
    ]
 }
 
