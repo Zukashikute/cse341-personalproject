@@ -36,21 +36,15 @@
     },
     "/tasks/": {
       "get": {
-        "description": "Getting all tasks from our database",
-        "produces": [
-          "application/json"
-        ],
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "description": "Creating a single task to our database",
+        "description": "",
         "parameters": [
           {
             "name": "body",
@@ -79,7 +73,7 @@
                 "startDate": {
                   "example": "any"
                 },
-                "dueDate": {
+                "endDate": {
                   "example": "any"
                 }
               }
@@ -87,6 +81,155 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "questPoints": {
+                  "example": "any"
+                },
+                "assignee": {
+                  "example": "any"
+                },
+                "reporter": {
+                  "example": "any"
+                },
+                "priority": {
+                  "example": "any"
+                },
+                "startDate": {
+                  "example": "any"
+                },
+                "endDate": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/auth/create": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
           "201": {
             "description": "Created"
           },
@@ -96,31 +239,19 @@
         }
       }
     },
-    "/tasks/{id}": {
+    "/auth/logout": {
       "get": {
-        "description": "Getting a single task from our database using id",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/auth/update/{id}": {
       "put": {
-        "description": "Updating a single task to our database",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -134,28 +265,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "username": {
                   "example": "any"
                 },
-                "description": {
-                  "example": "any"
-                },
-                "questPoints": {
-                  "example": "any"
-                },
-                "assignee": {
-                  "example": "any"
-                },
-                "reporter": {
-                  "example": "any"
-                },
-                "priority": {
-                  "example": "any"
-                },
-                "startDate": {
-                  "example": "any"
-                },
-                "dueDate": {
+                "email": {
                   "example": "any"
                 }
               }
@@ -163,33 +276,11 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "description": "Deleting a single task to our database",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
