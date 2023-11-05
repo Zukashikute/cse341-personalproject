@@ -21,12 +21,12 @@ const taskDataValidation = () => {
 
       body("assignee")
          .trim()
-         .isLength({ min: 10 })
+         .isLength({ min: 1 })
          .withMessage("Please provide the name of the assignee."),
 
       body("reporter")
          .trim()
-         .isLength({ min: 8 })
+         .isLength({ min: 1 })
          .withMessage("Please provide the name of the reporter."),
 
       body("priority")
