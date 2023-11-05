@@ -5,6 +5,7 @@ require("dotenv").config()
 const Users = db.users;
 
 const createAccount = async (req, res) => {
+   // #swagger.description = 'Creating an account to our database'
    let hashedPassword
    try {
       // Regular password and cost (salt is generated automatically)
@@ -29,6 +30,7 @@ const createAccount = async (req, res) => {
 }
 
 const userLogin = async (req, res) => {
+    // #swagger.description = 'Logging in an account to our system'
    const { email, password } = req.body;
    if (!email || !password) {
       res.status(400);
@@ -51,6 +53,7 @@ const userLogin = async (req, res) => {
 }
 
 const userLogout = async (req, res) => {
+   // #swagger.description = 'Logging out an account to our system'
    res.clearCookie("jwt");
    console.log('Success! User logged out.');
    return res.redirect('/')
@@ -58,6 +61,7 @@ const userLogout = async (req, res) => {
 
 
 const updateAccount = async (req, res) => {
+   // #swagger.description = 'Updating an account to our database'
    const _id = req.params.id;
    const user = {
       username: req.body.username,

@@ -6,16 +6,16 @@ const userController = require('../controllers/users');
 // Login
 router.post('/login', userController.userLogin);
 
-//Create Account
+// Create Account
 router.post('/create', validation.registrationRules(), validation.checkRegisterData, userController.createAccount);
 
-//logout 
+// Logout Account
 router.get('/logout', validation.authCheck, userController.userLogout)
 
-//update user account
+// Update user account
 router.put('/update/:id', validation.authCheck, validation.updateRules(), validation.checkUpdateData, userController.updateAccount)
 
-//Oauth with Google
+// Oauth with Google
 router.get('/google', passport.authenticate('google', {
     scope: ['profile']
 }));

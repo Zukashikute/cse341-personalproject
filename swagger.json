@@ -38,8 +38,8 @@
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -99,8 +99,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -172,7 +172,7 @@
     },
     "/auth/login": {
       "post": {
-        "description": "",
+        "description": "Logging in an account to our system",
         "parameters": [
           {
             "name": "body",
@@ -205,7 +205,7 @@
     },
     "/auth/create": {
       "post": {
-        "description": "",
+        "description": "Creating an account to our database",
         "parameters": [
           {
             "name": "body",
@@ -241,7 +241,7 @@
     },
     "/auth/logout": {
       "get": {
-        "description": "",
+        "description": "Logging out an account to our system",
         "responses": {
           "200": {
             "description": "OK"
@@ -251,7 +251,7 @@
     },
     "/auth/update/{id}": {
       "put": {
-        "description": "",
+        "description": "Updating an account to our database",
         "parameters": [
           {
             "name": "id",

@@ -131,7 +131,7 @@ const authCheck = async (req, res, next) => {
             next()
          })
    } else {
-      return res.send('Sorry, you must first log in before using the system!')
+      return res.send('Sorry, you must log in to use our system!')
    }
 }
 
