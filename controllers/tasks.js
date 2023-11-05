@@ -108,7 +108,7 @@ const deleteTask = async (req, res) => {
             res.status(200).send();
             console.log(data)
          } else {
-            res.status(500).json(response.error || 'Some error ocurred while deleting the employee data')
+            res.status(500).json(response.error || 'Some error ocurred while deleting the task.')
          }
       })
 
