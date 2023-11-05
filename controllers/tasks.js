@@ -102,13 +102,15 @@ const deleteTask = async (req, res) => {
 
    const userId = new ObjectId(req.params.id);
 
-   const response = await Tasks.deleteOne({ _id: userId }, true)
-
-   if (response.deletedCount > 0) {
-      return res.status(200).send();
-   } else {
-      return res.status(500).json(response.error || 'Some error occurred while deleting the task.');
-   }
+   await Tasks.deleteOne({ _id: userId }, true)
+      .then((data) => {
+         if (data.deletedCount > 0) {
+            res.status(200).send();
+            console.log(data)
+         } else {
+            res.status(500).json(response.error || 'Some error ocurred while deleting the employee data')
+         }
+      })
 
 }
 
