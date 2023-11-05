@@ -102,7 +102,7 @@ const deleteTask = async (req, res) => {
 
    const userId = new ObjectId(req.params.id);
 
-   await Tasks.deleteOne({ _id: userId }, true)
+   await Tasks.deleteOne({ _id: userId })
       .then((data) => {
          if (data.deletedCount > 0) {
             res.status(200).send();
