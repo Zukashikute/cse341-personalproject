@@ -52,7 +52,6 @@ const userLogin = async (req, res) => {
 
 const userLogout = async (req, res) => {
    res.clearCookie("jwt");
-   req.logOut();
    console.log('Success! User logged out.');
    return res.redirect('/')
 }
