@@ -1,38 +1,159 @@
-const validator = require('../helpers/validate');
+const { body, validationResult } = require("express-validator")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
-const saveTask = (req, res, next) => {
-   const validationRule = {
-      title: 'required|string',
-      description: 'string',
-      questPoints: 'digits_between:0,4',
-      assignee: 'string',
-      reporter: 'string',
-      priority: 'string',
-      startDate: 'date',
-      dueDate: 'date',
-   };
-   validator(req.body, validationRule, {
-      "required.title": 'We cannot create a task without a title.',
-      "description": 'Task description',
-      "questPoints": 'Quest points must be a number between 0 and 4',
-      "assignee": 'Name of the assignee',
-      "reporter": 'Name of the reporter',
-      "priority": 'Low, Medium, High, Highest',
-      "startDate": 'Date must be in this format = (2015-03-25 or 03/25/2015 or Mar 25 2015 / 25 Mar 2015)',
-      "dueDate": 'Date must be in this format = (2015-03-25 or 03/25/2015 or Mar 25 2015 / 25 Mar 2015)',
-   }, (err, status) => {
-      if (!status) {
-         res.status(412).send({
-            success: false,
-            message: 'Validation failed',
-            data: err
-         });
-      } else {
-         next();
-      }
-   });
-};
+const taskDataValidation = () => {
+   return [
+      body("title")
+         .trim()
+         .isLength({ min: 1 })
+         .withMessage("Please provide a title."),
 
-module.exports = {
-   saveTask
-};
+      body("description")
+         .trim()
+         .isLength({ min: 1 })
+         .withMessage("Please provide a description."),
+
+      body("questPoints")
+         .trim()
+         .isLength({ min: 1 })
+         .withMessage("Please provide a number for how many questpoints."),
+
+      body("assignee")
+         .trim()
+         .isLength({ min: 10 })
+         .withMessage("Please provide the name of the assignee."),
+
+      body("reporter")
+         .trim()
+         .isLength({ min: 8 })
+         .withMessage("Please provide the name of the reporter."),
+
+      body("priority")
+         .trim()
+         .isLength({ min: 1 })
+         .withMessage("Please, provide a job position."),
+
+      body("startDate")
+         .trim()
+         .isLength({ min: 1 })
+         .withMessage("Please, provide a start date."),
+
+      body("endDate")
+         .trim()
+         .isLength({ min: 1 })
+         .withMessage("Please, provide an end date."),
+   ]
+}
+
+
+const checkTaskData = async (req, res, next) => {
+   const { title, description, questPoints, assignee, reporter, priority, startDate, endDate } = req.body
+   let errors = []
+   errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      res.json(errors)
+      return
+   }
+   next()
+}
+
+const registrationRules = () => {
+   return [
+      body("username")
+         .trim()
+         .isLength({ min: 1 })
+         .withMessage("Please, provide a username."),
+
+      body("email")
+         .trim()
+         .isEmail()
+         .normalizeEmail()
+         .withMessage("A valid email is required."),
+
+      body("account_password")
+         .trim()
+         .isStrongPassword({
+            maxLength: 16,
+            minLength: 8,
+         })
+         .withMessage("The password must be 8 to 16 characters long"),
+   ]
+}
+
+const checkRegisterData = async (req, res, next) => {
+   const { username, email } = req.body
+   let errors = []
+   errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      res.json(errors)
+      return
+   }
+   next()
+}
+
+
+const updateRules = () => {
+   return [
+      body("username")
+         .trim()
+         .isLength({ min: 1 })
+         .withMessage("Please, provide a username."),
+
+      body("email")
+         .trim()
+         .isEmail()
+         .normalizeEmail()
+         .withMessage("A valid email is required."),
+   ]
+}
+
+const checkUpdateData = async (req, res, next) => {
+   const { username, email } = req.body
+   let errors = []
+   errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      res.json(errors)
+      return
+   }
+   next()
+}
+
+
+const authCheck = async (req, res, next) => {
+   if (req.user) {
+      next();
+   } else if (req.cookies.jwt) {
+      jwt.verify(
+         req.cookies.jwt,
+         process.env.ACCESS_TOKEN_SECRET,
+         function (err, user) {
+            if (err) {
+               console.log(err)
+            }
+            next()
+         })
+   } else {
+      return res.send('Sorry, you must first log in before using the system!')
+   }
+}
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+const handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = { taskDataValidation, checkTaskData, registrationRules, checkRegisterData, updateRules, checkUpdateData, authCheck, handleErrors };

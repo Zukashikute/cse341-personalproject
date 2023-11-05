@@ -11,5 +11,6 @@ db.mongoose = mongoose;
 db.url = mongoURL;
 db.tasks = require('./taskModel')(mongoose);
 db.users = require('./userModel')(mongoose);
+db.googleUser = require('./googleUsers')(mongoose);
 
 module.exports = db;
