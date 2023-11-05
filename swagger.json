@@ -73,7 +73,7 @@
                 "startDate": {
                   "example": "any"
                 },
-                "endDate": {
+                "dueDate": {
                   "example": "any"
                 }
               }
@@ -140,7 +140,7 @@
                 "startDate": {
                   "example": "any"
                 },
-                "endDate": {
+                "dueDate": {
                   "example": "any"
                 }
               }

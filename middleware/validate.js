@@ -48,7 +48,7 @@ const taskDataValidation = () => {
 
 
 const checkTaskData = async (req, res, next) => {
-   const { title, description, questPoints, assignee, reporter, priority, startDate, endDate } = req.body
+   const { title, description, questPoints, assignee, reporter, priority, startDate, dueDate } = req.body
    let errors = []
    errors = validationResult(req)
    if (!errors.isEmpty()) {
