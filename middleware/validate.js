@@ -39,7 +39,7 @@ const taskDataValidation = () => {
          .isLength({ min: 1 })
          .withMessage("Please, provide a start date."),
 
-      body("endDate")
+      body("dueDate")
          .trim()
          .isLength({ min: 1 })
          .withMessage("Please, provide an end date."),
